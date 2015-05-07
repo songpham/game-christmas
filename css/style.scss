@@ -1,0 +1,333 @@
+/**
+ * define variables
+ */
+$color1: #125e98; // tím
+$color2: #2787d4; // xanh
+$color3: #afc0de; // xanh nhạt
+$color4: #9a0001; // cam
+$color5: #DDF4FA; // hồng nhạt
+$color6: #c90000; // đỏ
+$color7: #f5f5f5; // grey
+$color8: #e9eaed; // grey light
+$color9: #867070; // grey
+$color10: #E0E0E0; // grey blue
+$color11: #fafafa; // grey really light
+$color12: #FFEEBE; // hồng siêu nhạt
+$color13: #428bca; // xanh đậm đẹp
+$color14: #55bb11; // xanh lá cây
+$color15: #3c763d; // xanh lá cây đậm
+$color16: #dff0d8; // xanh lá cây nhạt
+$color17: #DCDCDC; // xám nhạt
+$color18: #d22107; // cam
+$color19: #013454; // xanh nhạt
+$color20: #D92626; // đỏ
+$color21: #f0f0f0; // xám
+$color22: #ee7717; // cam đậm
+$color23: #444343; // đen
+$color24: #f0e5c9; // hồng
+$color25: #e5e5e5; // grey
+$color26: #e05b49; // cam đẹp
+$color27: #edeff5; // grey facebook
+$white: #ffffff;
+$black: #000000;
+$padding: 10px;
+$space: 20px;
+/**
+ * use it when its container has position is relative and height is defined
+ * i.e: @include drop-Shadow
+ */
+@mixin Absolute-Center {
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+@mixin drop-Shadow {
+    -webkit-box-shadow: 0 5px 9px -5px #888;
+    -moz-box-shadow: 0 5px 9px -5px #888;
+    box-shadow: 0 5px 9px -5px #888;
+}
+/**
+ * Rem is similar to the em value, but instead of being relative to the parent element it’srelative to the font-size set in the.
+ * It has all the benefits of em but you don’t get issues with e.g (compounding) since rem is only relative to the html element.
+ * Usage:
+    p {
+        @include font-size(14px)
+    }
+ */
+@function calculateRem($size) {
+    $remSize: $size / 16px;
+    @return $remSize * 1rem;
+}
+@mixin font-size($size) {
+    font-size: $size;
+    font-size: calculateRem($size);
+}
+/**
+ * Instead of calling them @media (min-width: 600px) we can give them more semantic names like “breakpoint-large” or “breakpoint-a-really-large-computer-machine”.
+ * Usage:
+    .sidebar {
+        width: 60%
+        float: left;
+        margin: 0 2% 0 0;
+        @include bp-small {
+            width: 100%;
+            float: none;
+            margin: 0;
+        }
+    }
+ */
+@mixin bp-large {
+    @media screen and (min-width: 769px) {
+        @content;
+    }
+}
+/*
+@mixin bp-medium {
+    @media screen and (min-width: 351px) and (max-width: 500px) {
+        @content;
+    }
+}
+*/
+@mixin bp-small {
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+}
+/**
+ * This mixin ensures cross browser opacity all the way down to Internet Explorer 5. Though if you have to optomize for IE5, you have a lot bigger problems than opacity, godspeed my friend.
+ *  Usage:
+    .faded-text {
+        @include opacity(0.8);
+    }
+ */
+@mixin opacity ($opacity) {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie); //IE8
+}
+@mixin hidden () {
+    display: none!important;
+    visibility: hidden!important;
+}
+@mixin space () {
+    clear: both;
+    display: block;
+}
+html {
+    @include bp-large {
+        font-size: 16px;
+    }
+    @include bp-small {
+        font-size: 14px;
+    }
+}
+body {
+    font-family: Roboto, Arial, sans-serif;
+    overflow-x: hidden;
+    .form-control {
+        width: auto;
+        max-width: 100%;
+    }
+    .background-mask {
+        width: 100%; height: 100%; position: fixed; top: 0; left: 0; background-image: url(../images/transparent-background.png); background-repeat: repeat; display: none;
+    }
+    .loading {
+        position: fixed; left: 48%; top: 48%; display: none;
+    }
+    .text-left {
+        text-align: left;
+    }
+    .text-right {
+        text-align: right;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .text-white {
+        color: $white !important;
+    }
+    .text-green {
+        color: $color14 !important;
+    }
+    .text-green-bold {
+        color: $color15 !important;
+    }
+    .text-red {
+        color: $color20 !important;
+    }
+    .text-blue {
+        color: $color1;
+    }
+    .text-grey {
+        color: $color9 !important;
+    }
+    .text-strong {
+        font-weight: bold !important;
+    }
+    .text-uppercase {
+        text-transform: uppercase !important;
+    }
+    img {
+        display: inline-block;
+        height: auto;
+        max-width: 100%;
+    }
+    a {
+        color: $white;
+        &:hover {
+            color: $white;
+        }
+    }
+    h1, h2, h3, h4, p { margin: 0; margin-bottom: 5px;}
+    h1 { @include font-size(25px); }
+    h2 {
+        @include font-size(21px);
+        line-height: 21px;
+    }
+    h3 { @include font-size(19px); }
+    h4 { @include font-size(15px); }
+    p { @include font-size(14px); }
+    label { @include font-size(14px); }
+    @include font-size(14px);
+    background-color: $color2;
+    color: $black;
+    word-wrap: break-word;
+    .space {
+        @include space();
+        height: $padding;
+    }
+    .space2 {
+        @include space();
+        height: $padding * 2;
+    }
+    .space3 {
+        @include space();
+        height: $padding * 3;
+    }
+    .btn-primary {
+        background-color: $color2;
+        border-color: $color2;
+    }
+    .background-white {
+        background-color: $white;
+    }
+    .background-grey {
+        background-color: $color8;
+    }
+    .modal {
+        color: $color1;
+    }
+    background: url("../images/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;         /* Generic*/
+}
+.container-fluid {
+    max-width: 800px;
+    background-color: $white;
+    padding: ($padding / 2) 22px;
+    position: relative;
+    right: 150px;
+    @media screen and (max-width: 1120px) {
+        right: 0px;
+    }
+    .title {
+        text-align: center;
+        @include font-size(40px);
+    }
+    .game {
+        border: 1px $color1 solid;
+        .item {
+            padding: 0px;
+            width: 25%;
+            .holder {
+                width: 100%;
+                height: 196px;
+                border: 1px $color1 solid;
+                .image {
+                    display: none;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                .text {
+                    display: none;
+                    padding: $padding;
+                    overflow-y: auto;
+                    @include font-size(16px);
+                    height: 100%;
+                    .question-number {
+                        color: $color26;
+                    }
+                }
+                .holder-number {
+                    text-align: center;
+                    padding-top: 40px;
+                    .number {
+                        @include font-size(80px);
+                        border-radius: 65px;
+                        moz-border-radius: 65px;
+                        webkit-border-radius: 65px;
+                        background-color: $color4;
+                        padding: 15px 35px;
+                        text-decoration: none;
+                        &:hover {
+                            background-color: $color19;
+                        }
+                        img {
+                            position: relative;
+                            top: -5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.show-question {
+    position: absolute;
+    text-align: center;
+    width: 50%;
+    left: 25%;
+    top: 2%;
+    display: none;
+    .title {
+        color: $color15;
+        @include font-size(50px);
+    }
+    .question {
+        text-align: left;
+        @include font-size(30px);
+        background-color: $white;
+        border-radius: 10px;
+        moz-border-radius: 10px;
+        webkit-border-radius: 10px;
+        padding: 15px;
+        img {
+            max-width: 400px;
+            margin: auto;
+            display: block;
+        }
+    }
+    .button {
+        @include font-size(50px);
+        padding: 10px 40px 2px;
+        background-color: $color19;
+        border-radius: 10px;
+        moz-border-radius: 10px;
+        webkit-border-radius: 10px;
+        margin: 0px 80px;
+        &:hover {
+            background-color: $color10;
+            border: 1px solid $black;
+        }
+        &.correct {
+            color: $color14;
+        }
+        &.incorrect {
+            color: $color6;
+        }
+    }
+}

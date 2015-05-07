@@ -1,0 +1,1 @@
+d:/ruby200/bin/ruby d:/ruby200/bin/sass --watch -t compressed --scss style.scss:style.css
